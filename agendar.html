@@ -107,6 +107,71 @@
      BASE DE DATOS · CONEXIÓN DEL FORMULARIO
      ----------------------------------------------------------------
      Elige UNA opción y completa sus datos. El formulario usa la
+     (function () {
+       // CONFIGURACIÓN DE SUPABASE
+         const SUPABASE_URL = 'https://udtenqjlofjduuwffjja.supabase.co';
+           const SUPABASE_KEY = 'sb_publishable_JpIAa1iXYAyOVMLBlpBp6w_D8BaSKer';
+             const SUPABASE_TABLE = 'testimonios';
+
+               // Datos del formulario que se enviarán a Supabase
+                 async function guardarTestimonioEnSupabase(formData) {
+                     try {
+                           const response = await fetch(`${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}`, {
+                                   method: 'POST',
+                                           headers: {
+                                                     'Content-Type': 'application/json',
+                                                               'apikey': SUPABASE_KEY,
+                                                                         'Authorization': `Bearer ${SUPABASE_KEY}`
+                                                                                 },
+                                                                                         body: JSON.stringify({
+                                                                                                   nombre: formData.nombre,
+                                                                                                             mensaje: formData.descripcion,
+                                                                                                                       videoUrl: ''
+                                                                                                                               })
+                                                                                                                                     });
+                                                                                                                                     
+                                                                                                                                           if (response.ok) {
+                                                                                                                                                   console.log('Testimonio guardado exitosamente en Supabase');
+                                                                                                                                                           return true;
+                                                                                                                                                                 } else {
+                                                                                                                                                                         console.error('Error al guardar en Supabase:', response.statusText);
+                                                                                                                                                                                 return false;
+                                                                                                                                                                                       }
+                                                                                                                                                                                           } catch (error) {
+                                                                                                                                                                                                 console.error('Error conectando a Supabase:', error);
+                                                                                                                                                                                                       return false;
+                                                                                                                                                                                                           }
+                                                                                                                                                                                                             }
+                                                                                                                                                                                                             
+                                                                                                                                                                                                               // Capturar el formulario
+                                                                                                                                                                                                                 const form = document.getElementById('registroForm');
+                                                                                                                                                                                                                   if (form) {
+                                                                                                                                                                                                                       form.addEventListener('submit', async function(e) {
+                                                                                                                                                                                                                             e.preventDefault();
+                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                   const formData = {
+                                                                                                                                                                                                                                           nombre: document.getElementById('nombre').value,
+                                                                                                                                                                                                                                                   correo: document.getElementById('correo').value,
+                                                                                                                                                                                                                                                           descripcion: document.getElementById('descripcion').value,
+                                                                                                                                                                                                                                                                   telefono: document.getElementById('telefono').value || '',
+                                                                                                                                                                                                                                                                           programa: document.getElementById('programa').value || '',
+                                                                                                                                                                                                                                                                                   nacimiento: document.getElementById('nacimiento').value || '',
+                                                                                                                                                                                                                                                                                           hora: document.getElementById('hora').value || '',
+                                                                                                                                                                                                                                                                                                   lugar: document.getElementById('lugar').value || ''
+                                                                                                                                                                                                                                                                                                         };
+                                                                                                                                                                                                                                                                                                         
+                                                                                                                                                                                                                                                                                                               // Guardar en Supabase
+                                                                                                                                                                                                                                                                                                                     const guardadoEnBaseDatos = await guardarTestimonioEnSupabase(formData);
+                                                                                                                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                                                                                                           if (guardadoEnBaseDatos) {
+                                                                                                                                                                                                                                                                                                                                   // Mostrar mensaje de éxito
+                                                                                                                                                                                                                                                                                                                                           document.getElementById('formShell').style.display = 'none';
+                                                                                                                                                                                                                                                                                                                                                   document.getElementById('formDone').style.display = 'block';
+                                                                                                                                                                                                                                                                                                                                                         }
+                                                                                                                                                                                                                                                                                                                                                             });
+                                                                                                                                                                                                                                                                                                                                                               }
+                                                                                                                                                                                                                                                                                                                                                               })();
+                                                                                                                                                                                                                                                                                                                                                               
      primera que esté configurada; si ninguna lo está, abre el correo.
 
      ── OPCIÓN A · SUPABASE (recomendada) ──────────────────────────
