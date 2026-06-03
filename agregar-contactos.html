@@ -1,292 +1,308 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Agregar Contactos - Babá Fun Fun</title>
-    <style>
-          * { margin: 0; padding: 0; box-sizing: border-box; }
-          body { font-family: 'Mulish', sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; padding: 20px; }
-          .container { max-width: 900px; margin: 0 auto; }
-          .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-          .tab-btn { padding: 12px 24px; background: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
-          .tab-btn.active { background: #8b5cf6; color: white; }
-          .tab-content { display: none; background: white; border-radius: 12px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
-          .tab-content.active { display: block; }
-          h2 { color: #2c3e50; margin-bottom: 20px; }
-          .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-          .form-grid.full { grid-template-columns: 1fr; }
-          label { display: block; color: #2c3e50; margin-bottom: 6px; font-weight: 600; font-size: 13px; }
-          input, select, textarea { width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 6px; font-size: 13px; font-family: inherit; }
-          input:focus, select:focus, textarea:focus { outline: none; border-color: #8b5cf6; }
-          button { width: 100%; padding: 12px; background: #8b5cf6; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.3s; }
-          button:hover { background: #7c3aed; }
-          .message { margin-top: 20px; padding: 15px; border-radius: 6px; display: none; font-size: 14px; }
-          .message.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; display: block; }
-          .message.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; display: block; }
-          .import-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-          .import-table th { background: #f5f5f5; padding: 12px; text-align: left; font-weight: 600; color: #2c3e50; }
-          .import-table td { padding: 12px; border-bottom: 1px solid #e0e0e0; }
-          .contacts-list { margin-top: 30px; padding-top: 30px; border-top: 2px solid #e0e0e0; }
-          .contact-item { padding: 12px; background: #f5f5f5; border-radius: 6px; margin-bottom: 10px; }
-          .contact-email { color: #8b5cf6; font-weight: 600; }
-          .contact-phone { color: #7f8c8d; font-size: 12px; }
-        </style>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Agregar Contactos - Babá Fun Fun</title>
+      <style>
+                * { margin: 0; padding: 0; box-sizing: border-box; }
+                body {
+                              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                              min-height: 100vh; padding: 20px;
+                }
+                .container {
+                              max-width: 900px; margin: 0 auto; background: white;
+                              border-radius: 12px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); overflow: hidden;
+                }
+                .tabs { display: flex; background: #f8f9fa; border-bottom: 2px solid #e9ecef; }
+                .tab-btn {
+                              flex: 1; padding: 16px; border: none; background: transparent; cursor: pointer;
+                              font-size: 16px; font-weight: 500; color: #666; transition: all 0.3s ease;
+                              display: flex; align-items: center; justify-content: center; gap: 8px;
+                }
+                .tab-btn:hover { background: #e9ecef; color: #333; }
+                .tab-btn.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+                .tab-content { display: none; padding: 40px; min-height: 500px; }
+                .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+                @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+                form { display: flex; flex-direction: column; gap: 20px; }
+                h2 { color: #333; margin-bottom: 10px; font-size: 24px; }
+                .form-group { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+                .form-group.full { grid-column: 1 / -1; }
+                label { display: block; margin-bottom: 6px; color: #555; font-weight: 500; font-size: 14px; }
+                input[type="email"], input[type="tel"], input[type="text"], select, textarea {
+                              width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;
+                              font-family: inherit; font-size: 14px; transition: all 0.3s ease;
+                }
+                input:focus, select:focus, textarea:focus {
+                              outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+                }
+                textarea { resize: vertical; min-height: 200px; font-family: 'Courier New', monospace; font-size: 13px; }
+                button {
+                              padding: 14px 24px; border: none; border-radius: 6px; font-size: 16px;
+                              font-weight: 600; cursor: pointer; transition: all 0.3s ease;
+                }
+                button[type="submit"], button[onclick*="import"] {
+                              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;
+                              width: 100%; padding: 16px; margin-top: 10px;
+                }
+                button[type="submit"]:hover, button[onclick*="import"]:hover {
+                              transform: translateY(-2px); box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+                }
+                .message { padding: 12px 16px; border-radius: 6px; margin-top: 16px; display: none; font-weight: 500; }
+                .message.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; display: block; }
+                .message.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; display: block; }
+                .contacts-list { display: none; }
+                .contacts-list.active { display: block; }
+                table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+                th { background: #f8f9fa; font-weight: 600; color: #333; }
+                tr:hover { background: #f8f9fa; }
+                .help-text { font-size: 13px; color: #999; margin-top: 4px; }
+            </style>
   </head>
   <body>
-      <div class="container">
-            <div class="tabs">
-                    <button class="tab-btn active" onclick="showTab('form')">📝 Agregar Individual</button>button>
-                    <button class="tab-btn" onclick="showTab('import')">📊 Importar Múltiples</button>button>
-            </div>div>
-
-            <!-- TAB 1: FORMULARIO INDIVIDUAL -->
-            <div id="form" class="tab-content active">
-                    <h2>📱 Agregar Contacto</h2>
-                      <!-- TAB 2: IMPORTAR MÚLTIPLES -->
-                      <div id="import" class="tab-content">
-                                  <h2>Importar Múltiples Contactos</h2>
-                                <p style="margin-bottom: 15px; color: #7f8c8d; font-size: 14px;">Pega los contactos en este formato (copiar desde Excel):<br>
-                                  <strong>email | teléfono | nombre | origen | zona | esCliente | linkedin | instagram</strong></p>p>
-                                <textarea id="importData" placeholder="email@ejemplo.com | +598 93 422 022 | Juan | Terapeuta | Sur | Si |"></textarea>
-                                <button onclick="importContacts()">📥 Importar Contactos</button>button>
-                                <div id="importMessage" class="message"></div>div>
-                      </div>div></strong></h2>
-                  <form id="contactForm" novalidate>
-                          <div class="form-grid">
-                                    <div>
-                                                  <label for="email">Email *</label>label>
-                                                  <input type="email" id="email" name="email" placeholder="contacto@ejemplo.com" h>
-                                    </div>
-                                      <div>
-                                                    <label for="telefono">Teléfono *</label>label>
-                                                    <input type="tel" id="telefono" name="telefono" placeholder="+598 93 422 022" >
-                                      </div>
-                          </div>
-                            <div class="form-grid">
-                                        <div>
-                                                      <label for="nombre">Nombre</label>label>
-                                                      <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez">
-                                        </div>
-                                        <div>
-                                                      <label for="origen">Origen</label>label>
-                                                      <select id="origen" name="origen">
-                                                                      <option value="">Seleccionar...</option>option>
-                                                                      <option value="Terapeuta">Terapeuta</option>option>
-                                                                      <option value="Movimiento Rainbow">Movimiento Rainbow</option>option>
-                                                                      <option value="Viaje">Viaje</option>option>
-                                                                      <option value="Grupo">Grupo</option>option>
-                                                                      <option value="Amigo">Amigo/a</option>option>
-                                                                      <option value="Otro">Otro</option>option>
-                                                      </select>select>
-                                        </div>
-                            </div>
-                            <div class="form-grid">
-                                        <div>
-                                                      <label for="zona">Zona/Región</label>label>
-                                                      <input type="text" id="zona" name="zona" placeholder="Sur / Centro / Norte">
-                                        </div>
-                                        <div>
-                                                      <label for="esCliente">¿Es cliente?</label>label>
-                                                      <select id="esCliente" name="esCliente">
-                                                                      <option value="">Seleccionar...</option>option>
-                                                                      <option value="Sí">Sí</option>option>
-                                                                      <option value="No">No</option>option>
-                                                      </select>select>
-                                        </div>
-                            </div>
-                            <div class="form-grid">
-                                        <div>
-                                                      <label for="linkedin">LinkedIn</label>label>
-                                                      <input type="text" id="linkedin" name="linkedin" placeholder="linkedin.com/in/...">
-                                        </div>
-                                        <div>
-                                                      <label for="instagram">Instagram</label>label>
-                                                      <input type="text" id="instagram" name="instagram" placeholder="@usuario">
-                                        </div>
-                            </div>
-                            <button type="submit">✅ Agregar Contacto</button>button>
-                  </form>form>
-                    <div id="formMessage" class="message"></div>
-            </div>
-
-            <!-- TAB 2: IMPORTAR MÚLTIPLES -->
-            <div id="import" class="tab-content">
-                    <h2>📊 Importar Múltiples Contactos</h2>
-                  <p style="margin-bottom: 15px; color: #7f8c8d; font-size: 14px;">
-                    Pega los contactos en este formato (copiar desde Excel):<br>
-                    <strong>email | teléfono | nombre | origen | zona | esCliente | linkedin | instagram</strong>
-                  </p>p>
-                  <textarea id="importData" placeholder="email@ejemplo.com | +598 93 422 022 | Juan | Terapeuta | Sur | Sí | linkedin.com/in/juan | @juan" style="height: 150px; margin-bottom: 15px;"></textarea>
-                  <button onclick="importContacts()">📥 Importar Contactos</button>button>
-                  <div id="importMessage" class="message"></div>
-            </div>
-      
-          <!-- LISTA DE CONTACTOS -->
-          <div class="contacts-list" id="contactsListContainer" style="display: none;">
-                <h3>📋 Contactos agregados</h3>
-                <div id="contactsList"></div>
-          </div>
-      </div>
-  
-    <script>
-          const SUPABASE_URL = 'https://udtenqjlofjduuwffjja.supabase.co';
-          const SUPABASE_KEY = 'sb_publishable_JpIAa1iXYAyOVMLBlpBp6w_D8BaSKer';
-          const SUPABASE_TABLE = 'contactos';
-
-          function showTab(tabName) {
-                  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-                  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                  document.getElementById(tabName).classList.add('active');
-                  event.target.classList.add('active');
-          }
-
-          function showMessage(elementId, text, type) {
-                  const msg = document.getElementById(elementId);
-                  msg.textContent = text;
-                  msg.className = `message ${type}`;
-                  setTimeout(() => msg.className = 'message', 5000);
-          }
-
-          async function emailExists(email) {
-                  try {
-                            const response = await fetch(`${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?email=eq.${encodeURIComponent(email)}`, {
-                                        headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
-                            });
-                            const data = await response.json();
-                            return data.length > 0;
-                  } catch { return false; }
-          }
-
-          async function phoneExists(phone) {
-                  try {
-                            const normalized = phone.replace(/\s+|-/g, '');
-                            const response = await fetch(`${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?telefono=eq.${encodeURIComponent(normalized)}`, {
-                                        headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
-                            });
-                            const data = await response.json();
-                            return data.length > 0;
-                  } catch { return false; }
-          }
-
-          async function saveContact(contactData) {
-                  try {
-                            const response = await fetch(`${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}`, {
-                                        method: 'POST',
-                                        headers: {
-                                                      'Content-Type': 'application/json',
-                                                      'apikey': SUPABASE_KEY,
-                                                      'Authorization': `Bearer ${SUPABASE_KEY}`
-                                        },
-                                        body: JSON.stringify(contactData)
-                            });
-                            return response.ok;
-                  } catch { return false; }
-          }
-
-          document.getElementById('contactForm').addEventListener('submit', async (e) => {
-                  e.preventDefault();
-                  const email = document.getElementById('email').value.trim();
-                  const phone = document.getElementById('telefono').value.trim();
-
-
-                  }
-
-                  if (await emailExists(email)) {
-                            showMessage('formMessage', '⚠️ Este email ya está registrado', 'error');
-                            return;
-                  }
-
-                  if (await phoneExists(phone)) {
-                            showMessage('formMessage', '⚠️ Este teléfono ya está registrado', 'error');
-                            return;
-                  }
-
-                  const data = {
-                            email: email,
-                            telefono: phone.replace(/\s+|-/g, ''),
-                            nombre: document.getElementById('nombre').value.trim() || 'Sin nombre',
-                            origen: document.getElementById('origen').value || '',
-                            zona: document.getElementById('zona').value || '',
-                            es_cliente: document.getElementById('esCliente').value || '',
-                            linkedin: document.getElementById('linkedin').value || '',
-                            instagram: document.getElementById('instagram').value || ''
-                  };
-
-                  if (await saveContact(data)) {
-                            showMessage('formMessage', '✅ Contacto agregado exitosamente', 'success');
-                            document.getElementById('contactForm').reset();
-                            loadContacts();
-                  } else {
-                            showMessage('formMessage', '❌ Error al guardar', 'error');
-                  }
-          });
-
-          async function importContacts() {
-                  const text = document.getElementById('importData').value.trim();
-                  if (!text) {
-                            showMessage('importMessage', '⚠️ Pega datos primero', 'error');
-                            return;
-                  }
-
-                  const lines = text.split('\n');
-                  let added = 0, errors = 0;
-
-                  for (const line of lines) {
-                            const parts = line.split('|').map(p => p.trim());
-                            if (parts.length < 2) continue;
-
-                            const email = parts[0];
-                            const phone = parts[1];
-
-                            if (!email || !phone) { errors++; continue; }
-                            if (await emailExists(email) || await phoneExists(phone)) { errors++; continue; }
-
-                            const data = {
-                                        email: email,
-                                        telefono: phone.replace(/\s+|-/g, ''),
-                                        nombre: parts[2] || 'Sin nombre',
-                                        origen: parts[3] || '',
-                                        zona: parts[4] || '',
-                                        es_cliente: parts[5] || '',
-                                        linkedin: parts[6] || '',
-                                        instagram: parts[7] || ''
-                            };
-
-                            if (await saveContact(data)) added++;
-                            else errors++;
-                  }
-
-                  showMessage('importMessage', `✅ ${added} agregados | ⚠️ ${errors} duplicados/errores`, added > 0 ? 'success' : 'error');
-                  document.getElementById('importData').value = '';
-                  loadContacts();
-          }
-
-          async function loadContacts() {
-                  try {
-                            const response = await fetch(`${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?order=created_at.desc&limit=50`, {
-                                        headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
-                            });
-                            const contacts = await response.json();
-                            if (contacts.length > 0) {
-                                        document.getElementById('contactsListContainer').style.display = 'block';
-                                        document.getElementById('contactsList').innerHTML = contacts.map(c => `
-                                                    <div class="contact-item">
-                                                                  <div class="contact-email">${c.email}</div>
-                                                                                <div class="contact-phone">${c.telefono} • ${c.nombre} • ${c.origen}</div>
-                                                                                            </div>
-                                                                                                      `).join('');
-                            }
-                  } catch (e) { console.error(e); }
-          }
-
-          loadContacts();
-    </script>
+        <div class="container">
+                  <div class="tabs">
+                                <button class="tab-btn active" onclick="showTab('form')">📝 Agregar Individual</button>button>
+                                <button class="tab-btn" onclick="showTab('import')">📊 Importar Múltiples</button>button>
+                  </div>div>
+                  <div id="form" class="tab-content active">
+                                <h2>📱 Agregar Contacto</h2>
+                              <form id="contactForm">
+                                              <div class="form-group">
+                                                                  <div><label for="email">Email</label>label>
+                                                                                      <input type="email" id="email" placeholder="contacto@ejemplo.com"></div>
+                                                                  <div><label for="phone">Teléfono</label>label>
+                                                                                      <input type="tel" id="phone" placeholder="+598 93 422 022"></div>
+                                              </div>
+                                  <div class="form-group">
+                                                        <div><label for="nombre">Nombre</label>label>
+                                                                              <input type="text" id="nombre" placeholder="Juan Pérez"></div>
+                                                        <div><label for="origen">Origen</label>label>
+                                                                              <select id="origen">
+                                                                                                        <option value="">Seleccionar...</option>option>
+                                                                                                        <option value="Terapeuta">Terapeuta</option>option>
+                                                                                                        <option value="Movimiento Rainbow">Movimiento Rainbow</option>option>
+                                                                                                        <option value="Viaje">Viaje</option>option>
+                                                                                                        <option value="Grupo">Grupo</option>option>
+                                                                                                        <option value="Amigo">Amigo/a</option>option>
+                                                                                                        <option value="Otro">Otro</option>option>
+                                                                                </select>select></div>
+                                  </div>
+                                                <div class="form-group">
+                                                                      <div><label for="zona">Zona/Región</label>label>
+                                                                                            <input type="text" id="zona" placeholder="Sur / Centro / Norte"></div>
+                                                                      <div><label for="esCliente">¿Es cliente?</label>label>
+                                                                                            <select id="esCliente">
+                                                                                                                      <option value="">Seleccionar...</option>option>
+                                                                                                                      <option value="Sí">Sí</option>option>
+                                                                                                                      <option value="No">No</option>option>
+                                                                                              </select>select></div>
+                                                </div>
+                                                <div class="form-group">
+                                                                      <div><label for="linkedin">LinkedIn</label>label>
+                                                                                            <input type="text" id="linkedin" placeholder="linkedin.com/in/..."></div>
+                                                                      <div><label for="instagram">Instagram</label>label>
+                                                                                            <input type="text" id="instagram" placeholder="@usuario"></div>
+                                                </div>
+                                                <button type="submit">✅ Agregar Contacto</button>button>
+                              </form>form>
+                                <div id="formMessage" class="message"></div>
+                  </div>
+                  <div id="import" class="tab-content">
+                                <h2>📊 Importar Múltiples Contactos</h2>
+                              <p>Pega los contactos en este formato (copiar desde Excel):</p>
+                              <p class="help-text">email | teléfono | nombre | origen | zona | esCliente | linkedin | instagram</p>
+                              <textarea id="importData" placeholder="email@ejemplo.com | +598 93 422 022 | Juan | Terapeuta | Sur | Sí | linkedin.com/in/juan | @juan"></textarea>
+                              <button onclick="importContacts()">📥 Importar Contactos</button>button>
+                              <div id="importMessage" class="message"></div>
+                  </div>
+                <div id="contactsListContainer" class="contacts-list">
+                            <h2>📋 Contactos agregados</h2>
+                            <div id="contactsList"></div>
+                </div>
+        </div>
+      <script>
+                const SUPABASE_URL = 'https://udtenqjlofjduuwffjja.supabase.co';
+                const SUPABASE_KEY = 'sb_publishable_JpIAa1iXYAyOVMLBlpBp6w_D8BaSKer';
+                const SUPABASE_TABLE = 'contactos';
+                function showTab(tabName) {
+                              document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+                              document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                              document.getElementById(tabName).classList.add('active');
+                              document.querySelector(`button[onclick="showTab('${tabName}')"]`).classList.add('active');
+                }
+                function showMessage(containerId, message, type) {
+                              const container = document.getElementById(containerId);
+                              container.textContent = message;
+                              container.className = 'message ' + type;
+                              container.style.display = 'block';
+                              setTimeout(() => { container.style.display = 'none'; }, 5000);
+                }
+                async function emailExists(email) {
+                              if (!email) return false;
+                              try {
+                                                const response = await fetch(`${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?email=eq.${encodeURIComponent(email)}&limit=1`, {
+                                                                      method: 'GET',
+                                                                      headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' }
+                                                });
+                                                const data = await response.json();
+                                                return data.length > 0;
+                              } catch (e) {
+                                                console.error('Error checking email:', e);
+                                                return false;
+                              }
+                }
+                async function phoneExists(phone) {
+                              if (!phone) return false;
+                              try {
+                                                const response = await fetch(`${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?telefono=eq.${encodeURIComponent(phone)}&limit=1`, {
+                                                                      method: 'GET',
+                                                                      headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' }
+                                                });
+                                                const data = await response.json();
+                                                return data.length > 0;
+                              } catch (e) {
+                                                console.error('Error checking phone:', e);
+                                                return false;
+                              }
+                }
+                async function saveContact(contactData) {
+                              try {
+                                                const response = await fetch(`${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}`, {
+                                                                      method: 'POST',
+                                                                      headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY },
+                                                                      body: JSON.stringify(contactData)
+                                                });
+                                                if (response.ok) { return { success: true }; }
+                                                else {
+                                                                      const error = await response.json();
+                                                                      return { success: false, error: error.message || 'Error desconocido' };
+                                                }
+                              } catch (e) {
+                                                return { success: false, error: e.message };
+                              }
+                }
+                async function importContacts() {
+                              const textarea = document.getElementById('importData');
+                              const text = textarea.value.trim();
+                              if (!text) {
+                                                showMessage('importMessage', 'Por favor pega los contactos a importar', 'error');
+                                                return;
+                              }
+                              const lines = text.split('\n').filter(line => line.trim().length > 0);
+                              let imported = 0;
+                              let errors = 0;
+                              const errorMessages = [];
+                              showMessage('importMessage', `Importando ${lines.length} contactos...`, 'success');
+                              for (let i = 0; i < lines.length; i++) {
+                                                const parts = lines[i].split('|').map(p => p.trim());
+                                                const contactData = {
+                                                                      email: parts[0] || null,
+                                                                      telefono: parts[1] || null,
+                                                                      nombre: parts[2] || null,
+                                                                      origen: parts[3] || null,
+                                                                      zona: parts[4] || null,
+                                                                      es_cliente: parts[5] || null,
+                                                                      linkedin: parts[6] || null,
+                                                                      instagram: parts[7] || null
+                                                };
+                                                if (contactData.email || contactData.telefono) {
+                                                                      if (contactData.email && await emailExists(contactData.email)) {
+                                                                                                errorMessages.push(`Línea ${i + 1}: Email duplicado: ${contactData.email}`);
+                                                                                                errors++;
+                                                                                                continue;
+                                                                      }
+                                                                      if (contactData.telefono && await phoneExists(contactData.telefono)) {
+                                                                                                errorMessages.push(`Línea ${i + 1}: Teléfono duplicado: ${contactData.telefono}`);
+                                                                                                errors++;
+                                                                                                continue;
+                                                                      }
+                                                }
+                                                const result = await saveContact(contactData);
+                                                if (result.success) { imported++; }
+                                                else {
+                                                                      errorMessages.push(`Línea ${i + 1}: ${result.error}`);
+                                                                      errors++;
+                                                }
+                              }
+                              let finalMessage = `Importados: ${imported} | Errores: ${errors}`;
+                              if (errorMessages.length > 0 && errorMessages.length <= 5) {
+                                                finalMessage += '\n' + errorMessages.join('\n');
+                              }
+                              showMessage('importMessage', finalMessage, errors === 0 ? 'success' : 'error');
+                              if (imported > 0) {
+                                                textarea.value = '';
+                                                loadContacts();
+                              }
+                }
+                async function loadContacts() {
+                              try {
+                                                const response = await fetch(`${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}`, {
+                                                                      method: 'GET',
+                                                                      headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' }
+                                                });
+                                                const contacts = await response.json();
+                                                const container = document.getElementById('contactsListContainer');
+                                                const listDiv = document.getElementById('contactsList');
+                                                if (contacts.length === 0) {
+                                                                      listDiv.innerHTML = '<p>No hay contactos aún.</p>';
+                                                } else {
+                                                                      let html = '<table><thead><tr><th>Email</th><th>Teléfono</th><th>Nombre</th><th>Origen</th><th>Zona</th><th>Cliente</th><th>LinkedIn</th><th>Instagram</th></tr></thead><tbody>';
+                                                                      contacts.forEach(c => {
+                                                                                                html += `<tr><td>${c.email || '-'}</td><td>${c.telefono || '-'}</td><td>${c.nombre || '-'}</td><td>${c.origen || '-'}</td><td>${c.zona || '-'}</td><td>${c.es_cliente || '-'}</td><td>${c.linkedin || '-'}</td><td>${c.instagram || '-'}</td></tr>`;
+                                                                      });
+                                                                      html += '</tbody></table>';
+                                                                      listDiv.innerHTML = html;
+                                                }
+                                                container.classList.add('active');
+                              } catch (e) {
+                                                console.error('Error loading contacts:', e);
+                                                document.getElementById('contactsList').innerHTML = `<p style="color: red;">Error al cargar contactos: ${e.message}</p>`;
+                              }
+                }
+                document.getElementById('contactForm').addEventListener('submit', async (e) => {
+                              e.preventDefault();
+                              const contactData = {
+                                                email: document.getElementById('email').value || null,
+                                                telefono: document.getElementById('phone').value || null,
+                                                nombre: document.getElementById('nombre').value || null,
+                                                origen: document.getElementById('origen').value || null,
+                                                zona: document.getElementById('zona').value || null,
+                                                es_cliente: document.getElementById('esCliente').value || null,
+                                                linkedin: document.getElementById('linkedin').value || null,
+                                                instagram: document.getElementById('instagram').value || null
+                              };
+                              const hasData = Object.values(contactData).some(v => v !== null);
+                              if (!hasData) {
+                                                showMessage('formMessage', 'Por favor completa al menos un campo', 'error');
+                                                return;
+                              }
+                              if (contactData.email && await emailExists(contactData.email)) {
+                                                showMessage('formMessage', 'Este email ya existe en la base de datos', 'error');
+                                                return;
+                              }
+                              if (contactData.telefono && await phoneExists(contactData.telefono)) {
+                                                showMessage('formMessage', 'Este teléfono ya existe en la base de datos', 'error');
+                                                return;
+                              }
+                              const result = await saveContact(contactData);
+                              if (result.success) {
+                                                showMessage('formMessage', 'Contacto guardado correctamente', 'success');
+                                                document.getElementById('contactForm').reset();
+                                                loadContacts();
+                              } else {
+                                                showMessage('formMessage', 'Error al guardar: ' + result.error, 'error');
+                              }
+                });
+                loadContacts();
+      </script>
   </body>
 </html>html>
-    </script></strong></h2>
-                                      </div>
-                                    </div></h2>
+      </script></p></h2>
+                                  </div></div></h2>
   </body>
-    </style></title>
+      </style></title>
   </head>
