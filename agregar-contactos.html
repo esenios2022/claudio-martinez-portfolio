@@ -47,11 +47,11 @@
                           <div class="form-grid">
                                     <div>
                                                   <label for="email">Email *</label>label>
-                                                  <input type="email" id="email" name="email" placeholder="contacto@ejemplo.com" required>
+                                                  <input type="email" id="email" name="email" placeholder="contacto@ejemplo.com" h>
                                     </div>
                                       <div>
                                                     <label for="telefono">Teléfono *</label>label>
-                                                    <input type="tel" id="telefono" name="telefono" placeholder="+598 93 422 022" required>
+                                                    <input type="tel" id="telefono" name="telefono" placeholder="+598 93 422 022" >
                                       </div>
                           </div>
                             <div class="form-grid">
@@ -180,9 +180,7 @@
                   const email = document.getElementById('email').value.trim();
                   const phone = document.getElementById('telefono').value.trim();
 
-                  if (!email || !phone) {
-                            showMessage('formMessage', '⚠️ Email y Teléfono son obligatorios', 'error');
-                            return;
+
                   }
 
                   if (await emailExists(email)) {
