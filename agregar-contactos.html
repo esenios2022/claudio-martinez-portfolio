@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+  <html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Contactos - Babá Fun Fun</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+}
+
+    body {
+            font-family: 'Mulish', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+}
+
+    .container {
+            background: white;
+      border-radius: 12px;
+      padding: 40px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+    h1 {
+            color: #2c3e50;
+      margin-bottom: 10px;
+      font-size: 28px;
+}
+
+    .subtitle {
+            color: #7f8c8d;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    .form-group {
+            margin-bottom: 20px;
+}
+
+    label {
+            display: block;
+      color: #2c3e50;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 14px;
+}
+
+    input {
+            width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+}
+
+    input:focus {
+            outline: none;
+      border-color: #8b5cf6;
+}
+
+    button {
+            width: 100%;
+      padding: 12px;
+      background: #8b5cf6;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+}
+
+    button:hover {
+            background: #7c3aed;
+}
+
+    button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+}
+
+    .message {
+            margin-top: 20px;
+      padding: 15px;
+      border-radius: 6px;
+      display: none;
+      font-size: 14px;
+}
+
+    .message.success {
+      background: #d4edda;
+            color: #155724;
+      border: 1px solid #c3e6cb;
+      display: block;
+    }
+
+    .message.error {
+      background: #f8d7da;
+            color: #721c24;
+      border: 1px solid #f5c6cb;
+      display: block;
+    }
+
+    .loading {
+            display: none;
+      text-align: center;
+      color: #7f8c8d;
+      font-size: 14px;
+    }
+
+    .contacts-list {
+            margin-top: 40px;
+      padding-top: 30px;
+      border-top: 2px solid #e0e0e0;
+        }
+
+    .contacts-list h2 {
+              color: #2c3e50;
+      margin-bottom: 15px;
+      font-size: 18px;
+}
+
+    .contact-item {
+            padding: 10px;
+      background: #f5f5f5;
+            border-radius: 6px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+}
+
+    .contact-info {
+            flex: 1;
+}
+
+          .contact-phone {
+            color: #8b5cf6;
+      font-weight: 600;
+}
+
+    .contact-name {
+            color: #7f8c8d;
+      font-size: 12px;
+}
+  </style>
+    </head>
+    <body>
+      <div class="container">
+        <h1>📱 Agregar Contacto</h1>
+        <p class="subtitle">Comparte tu número de WhatsApp con el equipo</p>
+
+    <form id="contactForm" novalidate>
+      <div class="form-group">
+        <label for="telefono">Número de WhatsApp *</label>
+        <input 
+          type="tel" 
+          id="telefono" 
+              name="telefono" 
+              placeholder="+598 93 422 022" 
+              required>
+          </div>
+
+          <div class="form-group">
+            <label for="nombre">Nombre (opcional)</label>
+            <input 
+              type="text" 
+              id="nombre" 
+              name="nombre" 
+              placeholder="Tu nombre o alias">
+          </div>
+
+          <button type="submit" id="submitBtn">Agregar Contacto</button>
+          <div class="loading" id="loading">Guardando...</div>
+        </form>
+
+        <div id="message" class="message"></div>
+
+        <div class="contacts-list" id="contactsListContainer" style="display: none;">
+          <h2>Contactos agregados</h2>
+          <div id="contactsList"></div>
+        </div>
+      </div>
+
+      <script>
+        // CONFIGURACIÓN DE SUPABASE
+        const SUPABASE_URL = 'https://udtenqjlofjduuwffjja.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_JpIAa1iXYAyOVMLBlpBp6w_D8BaSKer';
+    const SUPABASE_TABLE = 'contactos';
+
+    const form = document.getElementById('contactForm');
+    const messageDiv = document.getElementById('message');
+    const loading = document.getElementById('loading');
+    const contactsList = document.getElementById('contactsList');
+    const contactsListContainer = document.getElementById('contactsListContainer');
+
+    // Función para mostrar mensaje
+    function showMessage(text, type) {
+            messageDiv.textContent = text;
+      messageDiv.className = `message ${type}`;
+      setTimeout(() => {
+        messageDiv.className = 'message';
+    }, 5000);
+}
+
+    // Función para normalizar teléfono (remover espacios, guiones)
+    function normalizePhone(phone) {
+            return phone.replace(/\s+|-/g, '');
+              }
+
+    // Función para verificar si el teléfono ya existe
+    async function phoneExists(phone) {
+      try {
+        const normalizedPhone = normalizePhone(phone);
+        const response = await fetch(
+          `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?telefono=eq.${encodeURIComponent(normalizedPhone)}`,
+          {
+                      headers: {
+              'apikey': SUPABASE_KEY,
+                              'Authorization': `Bearer ${SUPABASE_KEY}`
+                }
+      }
+                );
+
+        const data = await response.json();
+        return data.length > 0;
+    } catch (error) {
+              console.error('Error verificando teléfono:', error);
+        return false;
+}
+}
+
+    // Función para agregar contacto
+    async function addContact(formData) {
+      loading.style.display = 'block';
+
+      try {
+        // Verificar si el teléfono ya existe
+        const exists = await phoneExists(formData.telefono);
+        if (exists) {
+          showMessage('⚠️ Este número de teléfono ya está registrado', 'error');
+          loading.style.display = 'none';
+          return;
+        }
+
+        // Guardar en Supabase
+        const response = await fetch(
+          `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}`,
+          {
+                      method: 'POST',
+                                    headers: {
+              'Content-Type': 'application/json',
+                              'apikey': SUPABASE_KEY,
+                              'Authorization': `Bearer ${SUPABASE_KEY}`
+                },
+                            body: JSON.stringify({
+                                            telefono: normalizePhone(formData.telefono),
+                                            nombre: formData.nombre || 'Sin nombre',
+                                            estado: 'pendiente'
+                              })
+                              }
+        );
+
+        if (response.ok) {
+          showMessage('✅ Contacto agregado exitosamente!', 'success');
+          form.reset();
+          loadContacts();
+        } else {
+          showMessage('❌ Error al guardar el contacto', 'error');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showMessage('❌ Error al guardar el contacto', 'error');
+      } finally {
+                loading.style.display = 'none';
+    }
+}
+
+    // Función para cargar contactos
+    async function loadContacts() {
+            try {
+        const response = await fetch(
+          `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?order=created_at.desc`,
+          {
+                      headers: {
+              'apikey': SUPABASE_KEY,
+                              'Authorization': `Bearer ${SUPABASE_KEY}`
+                }
+        }
+        );
+
+        const contacts = await response.json();
+        if (contacts.length > 0) {
+          contactsListContainer.style.display = 'block';
+          contactsList.innerHTML = contacts.map(c => `
+                        <div class="contact-item">
+                          <div class="contact-info">
+                            <div class="contact-phone">${c.telefono}</div>
+                            <div class="contact-name">${c.nombre || 'Sin nombre'}</div>
+                          </div>
+                        </div>
+                      `).join('');
+        } else {
+          contactsListContainer.style.display = 'none';
+        }
+            } catch (error) {
+        console.error('Error cargando contactos:', error);
+            }
+    }
+
+    // Event listener para el formulario
+    form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+      const formData = {
+                telefono: document.getElementById('telefono').value.trim(),
+                          nombre: document.getElementById('nombre').value.trim()
+                  };
+
+      if (!formData.telefono) {
+        showMessage('Por favor ingresa un número de teléfono', 'error');
+        return;
+      }
+
+      await addContact(formData);
+});
+
+    // Cargar contactos al abrir la página
+    loadContacts();
+  </script>
+    </body>
+    </html>
