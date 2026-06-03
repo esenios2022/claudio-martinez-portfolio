@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agendar · Registro de Atendimiento · Babá Fun Fun</title>
+<meta name="description" content="Completa tu registro para iniciar tu proceso de sanación multidimensional. Tu información llega directamente al facilitador.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Marcellus&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-page="contacto">
+
+<!-- ============================ PAGE HERO ============================ -->
+<section class="page-hero section-dark" data-screen-label="Agendar · Hero">
+  <div class="wrap reveal" style="max-width:760px;">
+    <span class="eyebrow on-dark">Registro de Atendimiento</span>
+    <h1 class="display" style="margin-top:22px;">Demos juntos el primer paso</h1>
+    <p class="lead" style="margin-top:18px;">Completa tu registro con calma y sinceridad. Cada dato me ayuda a preparar tu diagnóstico multidimensional antes de nuestro encuentro. Lo que compartas se guarda en un espacio de absoluta confidencialidad.</p>
+  </div>
+</section>
+
+<!-- ============================ FORMULARIO ============================ -->
+<section data-screen-label="Formulario">
+  <div class="wrap">
+
+    <div class="form-shell" id="formShell">
+      <div class="center" style="margin-bottom:30px;">
+        <span class="eyebrow">Tus datos sagrados</span>
+        <h2 class="display" style="margin-top:12px;font-size:clamp(1.6rem,3vw,2.4rem);">Formulario de Registro</h2>
+      </div>
+
+      <form id="registroForm" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="nombre">Nombre completo <span class="req">*</span></label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre y apellido" required>
+          </div>
+          <div class="field">
+            <label for="email">Correo electrónico <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required>
+          </div>
+          <div class="field">
+            <label for="telefono">WhatsApp / Teléfono</label>
+            <input type="tel" id="telefono" name="telefono" placeholder="+55 ...">
+          </div>
+          <div class="field">
+            <label for="programa">Programa de tu interés</label>
+            <select id="programa" name="programa">
+              <option>Sesión Única</option>
+              <option>Jornada de 8</option>
+              <option>Renacimiento de 12</option>
+              <option>Aún no lo sé · oriéntame</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="nacimiento">Fecha de nacimiento <span class="req">*</span></label>
+            <input type="date" id="nacimiento" name="nacimiento" required>
+          </div>
+          <div class="field">
+            <label for="hora">Hora de nacimiento</label>
+            <input type="time" id="hora" name="hora">
+            <span class="hint">Si la conoces — nos ayuda en la lectura.</span>
+          </div>
+          <div class="field full">
+            <label for="lugar">Ciudad y país de nacimiento</label>
+            <input type="text" id="lugar" name="lugar" placeholder="Ciudad, país">
+          </div>
+          <div class="field full">
+            <label for="descripcion">¿Qué estás viviendo? <span class="req">*</span></label>
+            <textarea id="descripcion" name="descripcion" placeholder="Cuéntame con tus palabras lo que te trae hasta aquí: lo que sientes, lo que se repite, lo que anhelas transformar." required></textarea>
+            <span class="hint">No hace falta que sea perfecto. Escribe desde el corazón.</span>
+          </div>
+
+          <div class="consent">
+            <input type="checkbox" id="consent" name="consent" required>
+            <label for="consent">Autorizo de forma libre, expresa e informada el tratamiento de mis datos personales —incluidos los datos sensibles que decida compartir— con la finalidad exclusiva de gestionar mi registro y atendimiento terapéutico, conforme a la <strong>Ley N° 18.331 de Protección de Datos Personales (Uruguay)</strong> y a la <strong>Ley General de Protección de Datos — LGPD, Lei nº 13.709/2018 (Brasil)</strong>. Comprendo que mis datos se tratan de manera confidencial, no se comparten con terceros, y que puedo solicitar su acceso, rectificación o eliminación en cualquier momento. <span class="req">*</span></label>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary is-disabled" id="submitBtn" aria-disabled="true">Enviar mi registro</button>
+          <button type="button" class="btn btn-wa is-disabled" id="waBtn" aria-disabled="true">Enviar por WhatsApp</button>
+        </div>
+        <p class="form-privacy">Al enviar, tu registro se abre como un correo dirigido a <strong>esenios2022@gmail.com</strong> y se guarda una copia en este dispositivo. Tus datos son tratados con absoluta confidencialidad y nunca se comparten con terceros.</p>
+      </form>
+    </div>
+
+    <!-- Confirmación -->
+    <div class="form-shell form-done" id="formDone">
+      <span class="diamond"></span>
+      <h2 class="display" style="font-size:clamp(1.8rem,3.5vw,2.8rem);">Tu registro está en camino 🙏</h2>
+      <p class="lead" style="margin:20px auto 0;max-width:48ch;">Gracias por tu confianza. Se abrió tu correo con todos los datos listos para enviar — solo confírmalo desde tu app de correo. Pronto me pondré en contacto contigo para coordinar tu sesión.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:32px;">
+        <a class="btn btn-primary" href="index.html">Volver al inicio</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script src="assets/site.js"></script>
+<script>
+(function () {
+  /* ════════════════════════════════════════════════════════════════
+     BASE DE DATOS · CONEXIÓN DEL FORMULARIO
+     ----------------------------------------------------------------
+     Elige UNA opción y completa sus datos. El formulario usa la
+     primera que esté configurada; si ninguna lo está, abre el correo.
+
+     ── OPCIÓN A · SUPABASE (recomendada) ──────────────────────────
+     1. Crea un proyecto gratis en https://supabase.com
+     2. Crea una tabla (p.ej. "registros") con columnas de texto:
+        nombre, email, telefono, programa, nacimiento, hora,
+        lugar, descripcion, creado_en
+     3. En Project Settings → API copia la URL y la "anon public key".
+     4. Crea una policy de INSERT para el rol anon (RLS).
+     5. Pega los tres valores aquí:
+     ── OPCIÓN B · WEBHOOK (Make.com / Google Sheets / Zapier) ──────
+     1. Crea un escenario con un webhook que reciba JSON.
+     2. Pega la URL del webhook en WEBHOOK_URL.
+     ── OPCIÓN C · FORMSPREE ───────────────────────────────────────
+     1. Crea un form en https://formspree.io y pega su código.
+     ════════════════════════════════════════════════════════════════ */
+  const SUPABASE_URL   = "";   // p.ej. "https://xxxx.supabase.co"
+  const SUPABASE_KEY   = "";   // anon public key
+  const SUPABASE_TABLE = "registros";
+  const WEBHOOK_URL    = "";   // Make.com / Google Apps Script / Zapier
+  const FORM_ENDPOINT  = "";   // código de Formspree (sin la URL)
+
+  const MAIL = "esenios2022@gmail.com";
+  const WA_NUMBER = "59893422022";
+  const form = document.getElementById("registroForm");
+  const shell = document.getElementById("formShell");
+  const done = document.getElementById("formDone");
+  const consent = document.getElementById("consent");
+  const submitBtn = document.getElementById("submitBtn");
+  const waBtn = document.getElementById("waBtn");
+
+  // Los botones de envío solo se habilitan con el consentimiento marcado.
+  function syncGate() {
+    [submitBtn, waBtn].forEach(b => {
+      b.classList.toggle("is-disabled", !consent.checked);
+      b.setAttribute("aria-disabled", String(!consent.checked));
+    });
+  }
+  consent.addEventListener("change", syncGate);
+  syncGate();
+
+  // Botón de WhatsApp: abre un chat con el facilitador, con el registro ya escrito.
+  waBtn.addEventListener("click", function () {
+    if (!valid()) return;
+    const d = gather();
+    saveLocal(d);
+    const msg = "\u2728 Nuevo registro desde la web\n\n" + buildText(d);
+    window.open("https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg), "_blank");
+    showDone();
+  });
+
+  // Pre-seleccionar programa desde el query (?programa=...)
+  const params = new URLSearchParams(location.search);
+  const pre = params.get("programa");
+  if (pre) {
+    const sel = document.getElementById("programa");
+    [...sel.options].forEach(o => { if (o.value === pre) sel.value = pre; });
+  }
+
+  // Sanitización básica: quita < > para prevenir inyección de HTML/scripts
+  // y recorta longitudes razonables.
+  function clean(v, max) {
+    return String(v == null ? "" : v).replace(/[<>]/g, "").trim().slice(0, max || 500);
+  }
+
+  function gather() {
+    return {
+      nombre: clean(nombre.value, 120),
+      email: clean(email.value, 160),
+      telefono: clean(telefono.value, 40),
+      programa: clean(programa.value, 80),
+      nacimiento: clean(nacimiento.value, 20),
+      hora: clean(hora.value, 12),
+      lugar: clean(lugar.value, 120),
+      descripcion: clean(descripcion.value, 2000),
+      creado_en: new Date().toISOString()
+    };
+  }
+
+  function buildText(d) {
+    return [
+      "NUEVO REGISTRO DE ATENDIMIENTO",
+      "—————————————————————",
+      "Nombre: " + d.nombre,
+      "Correo: " + d.email,
+      "WhatsApp/Tel: " + (d.telefono || "—"),
+      "Interés / Programa: " + d.programa,
+      "Fecha de nacimiento: " + (d.nacimiento || "—"),
+      "Hora de nacimiento: " + (d.hora || "—"),
+      "Lugar de nacimiento: " + (d.lugar || "—"),
+      "",
+      "¿Qué está viviendo?",
+      d.descripcion
+    ].join("\n");
+  }
+
+  function saveLocal(d) {
+    try {
+      const key = "bff-registros";
+      const arr = JSON.parse(localStorage.getItem(key) || "[]");
+      arr.push(d);
+      localStorage.setItem(key, JSON.stringify(arr));
+    } catch (e) {}
+  }
+
+  function valid() {
+    const required = ["nombre", "email", "telefono", "descripcion"];
+    let ok = true;
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) { el.style.borderColor = "#b4543f"; ok = false; }
+      else { el.style.borderColor = ""; }
+    });
+    if (email.value && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value)) { email.style.borderColor = "#b4543f"; ok = false; }
+    if (!consent.checked) { ok = false; }
+    return ok;
+  }
+
+  function showDone() {
+    shell.classList.add("hide");
+    done.classList.add("show");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function mailFallback(d) {
+    window.location.href = "mailto:" + MAIL +
+      "?subject=" + encodeURIComponent("Registro de Atendimiento — " + d.nombre) +
+      "&body=" + encodeURIComponent(buildText(d));
+    showDone();
+  }
+
+  // Envía a la base de datos configurada. Devuelve una Promise.
+  function sendToBackend(d) {
+    if (SUPABASE_URL && SUPABASE_KEY) {
+      return fetch(SUPABASE_URL.replace(/\/$/, "") + "/rest/v1/" + SUPABASE_TABLE, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_KEY,
+          "Authorization": "Bearer " + SUPABASE_KEY,
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify(d)
+      }).then(r => { if (!r.ok) throw new Error("supabase"); });
+    }
+    if (WEBHOOK_URL) {
+      return fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(d)
+      }).then(r => { if (!r.ok) throw new Error("webhook"); });
+    }
+    if (FORM_ENDPOINT) {
+      const fd = new FormData();
+      Object.entries(d).forEach(([k, v]) => fd.append(k, v));
+      return fetch("https://formspree.io/f/" + FORM_ENDPOINT, {
+        method: "POST", headers: { "Accept": "application/json" }, body: fd
+      }).then(r => { if (!r.ok) throw new Error("formspree"); });
+    }
+    return null; // ninguna base configurada
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!valid()) return;
+    const d = gather();
+    saveLocal(d);
+
+    const req = sendToBackend(d);
+    if (!req) { mailFallback(d); return; }
+
+    submitBtn.classList.add("is-disabled");
+    submitBtn.textContent = "Enviando…";
+    req
+      .then(() => showDone())
+      .catch(() => mailFallback(d))
+      .finally(() => {
+        submitBtn.classList.remove("is-disabled");
+        submitBtn.textContent = "Enviar mi registro";
+      });
+  });
+})();
+</script>
+<style id="__om-edit-overrides"></style>
+</body>
+</html>
