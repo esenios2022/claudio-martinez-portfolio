@@ -117,7 +117,7 @@
     /* ===== HOME · TARIFAS ===== */
     "Sesiones · 100% Online en vivo por Zoom": "Sessões · 100% Online ao vivo por Zoom",
     "Vívelo desde la comodidad de tu casa": "Viva isso do conforto da sua casa",
-    "No tienes que ir a ningún lado: nos encontramos en vivo por Zoom y lo vivimos desde tu propia sala. Podemos coordinar ahora mismo y empezar a transformar eso que estás viviendo. Son técnicas muy efectivas Te invito a vivirlas y comprobarlo por ti mismo.": "Você não precisa ir a lugar nenhum: nos encontramos ao vivo por Zoom e vivemos isso da sua própria sala. Podemos combinar agora mesmo e começar a transformar aquilo que você está vivendo. São técnicas muito efetivas. Convido você a vivê-las e comprovar por si mesmo.",
+    "No tienes que ir a ningún lado: nos encontramos en vivo por Zoom y lo vivimos desde tu propia sala. Podemos coordinar ahora mismo y empezar a transformar eso que estás viviendo. Son técnicas muy efectivas. Te invito a vivirlas y comprobarlo por ti mismo.": "Você não precisa ir a lugar nenhum: nos encontramos ao vivo por Zoom e vivemos isso da sua própria sala. Podemos combinar agora mesmo e começar a transformar aquilo que você está vivendo. São técnicas muito efetivas. Convido você a vivê-las e comprovar por si mesmo.",
     "Sesión Individual": "Sessão Individual",
     "Atendimiento Único": "Atendimento Único",
     "Por encuentro": "Por encontro",
