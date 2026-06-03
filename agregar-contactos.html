@@ -43,6 +43,15 @@
             <!-- TAB 1: FORMULARIO INDIVIDUAL -->
             <div id="form" class="tab-content active">
                     <h2>📱 Agregar Contacto</h2>
+                      <!-- TAB 2: IMPORTAR MÚLTIPLES -->
+                      <div id="import" class="tab-content">
+                                  <h2>Importar Múltiples Contactos</h2>
+                                <p style="margin-bottom: 15px; color: #7f8c8d; font-size: 14px;">Pega los contactos en este formato (copiar desde Excel):<br>
+                                  <strong>email | teléfono | nombre | origen | zona | esCliente | linkedin | instagram</strong></p>p>
+                                <textarea id="importData" placeholder="email@ejemplo.com | +598 93 422 022 | Juan | Terapeuta | Sur | Si |"></textarea>
+                                <button onclick="importContacts()">📥 Importar Contactos</button>button>
+                                <div id="importMessage" class="message"></div>div>
+                      </div>div></strong></h2>
                   <form id="contactForm" novalidate>
                           <div class="form-grid">
                                     <div>
