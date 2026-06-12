@@ -156,6 +156,7 @@
     "Integré de forma pacífica y transformadora mis experiencias con la medicina. El contenedor de Fabián es de una seguridad absoluta.": "Integrei de forma pacífica e transformadora minhas experiências com a medicina. O contêiner do Fabián é de uma segurança absoluta.",
     "Sanación de fobias": "Cura de fobias",
     "Abundancia financiera": "Abundância financeira",
+    "Ver más testimonios": "Ver mais testemunhos",
 
     /* ===== HOME · PROYECTOS ===== */
     "Más Allá del Consultorio": "Além do Consultório",
